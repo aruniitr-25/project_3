@@ -1,96 +1,57 @@
- Genomic Fragment Density Calculator
+Project 3: V-Plot Matrix Generator (Pandas Version)
 
-This script is a high-performance Python utility that reads genomic interval data (like a BED file) from standard input (stdin) and calculates the density of fragments based on their midpoint offset and length.
+Goal: Generate a V-plot matrix (Offset vs. Fragment Length) from raw genomic sequencing data using the Pandas library. This approach leverages vectorized operations for high performance and code conciseness, replacing complex manual loops with efficient DataFrame manipulations.
 
-It uses vectorized operations from the pandas library to quickly process large streaming datasets, making it ideal for integration into bioinformatics pipelines. The output is a matrix of offset, length, and the count of fragments that share those exact properties.
+🚀 Key Features
 
- Features
+Concise Codebase: The entire logic is implemented in fewer than 40 lines of code, making it easy to read and maintain.
 
-High Performance: Leverages Pandas vectorized arithmetic (df["end"] - df["start"]) and the highly optimized groupby().size().
+Vectorized Calculations: Uses Pandas' column-based operations to calculate fragment lengths and midpoints for millions of rows instantly, without explicit loops.
 
-Standard I/O: Reads from stdin and writes the resulting matrix to stdout.
+Efficient Grouping: Utilizes groupby().size() to aggregate millions of reads into matrix counts in a single step.
 
-Focused Data Processing: Only reads columns 1 and 2 (Start and End) from the input to optimize memory usage.
+Stream Processing: Reads data directly from standard input (pipes), allowing integration into Unix pipelines.
 
-Filtering: Automatically filters out fragments with a length greater than 1000 bp.
+📂 File Structure
 
-Matrix Output: Generates a ready-to-plot TSV matrix used for downstream visualization (e.g., heatmaps).
+File
 
- Requirements
+Language
 
-This script requires the pandas library.
+Description
+
+vplot_pandas.py
+
+Python
+
+The main script using Pandas to calculate coordinates and generate the matrix.
+
+🛠 Prerequisites
+
+Python 3.x
+
+Library: pandas
+
+To install pandas, run:
 
 pip install pandas
 
 
- Usage
+⚙️ Usage
 
-Pipe your unsorted or sorted genomic interval data (assuming standard 0-based, half-open format where columns 1 and 2 are Start and End) into the script.
+1. Run the Script
 
-Example
+Pipe your BED data directly into the script. This example uses shuf.a.bed.gz.
 
-# Assuming your input data is in 'fragments.bed'
-cat fragments.bed | python your_script_name.py > density_matrix.tsv
+zcat shuf.a.bed.gz | python3 vplot_pandas.py > matrix_pandas.tsv
 
 
-Input Data Format (Expected)
+Output:
+A tab-separated file (matrix_pandas.tsv) with three columns:
 
-The script expects tab-separated input where:
+offset: The genomic midpoint of the fragment.
 
-Column Index
+length: The size of the fragment (bp).
 
-0
-
-1
-
-2
-
-3...
-
-Content
-
-Chromosome
-
-Start
-
-End
-
-Other Data
-
-Output Data Format (Generated)
-
-The script writes a tab-separated matrix to stdout with the following columns:
-
-Column Name
-
-Calculation
-
-Description
-
-offset
-
-(start + end) // 2
-
-The integer midpoint of the genomic fragment (X-axis for a density plot).
-
-length
-
-end - start
-
-The calculated length of the fragment (Y-axis for a density plot).
-
-count
-
-Count
-
-The total number of fragments that share this specific offset and length combination.
- Core Logic
-
-The script performs three core vectorized calculations:
-
-Length: df["length"] = df["end"] - df["start"]
-
-Offset: df["offset"] = (df["start"] + df["end"]) // 2 (Integer division for midpoint)
-
-Aggregation: df.groupby(["offset", "length"]).size() counts the number of fragments at each unique (midpoint, length) coordinate.
+count: The number of fragments found at this specific position and size.
 
