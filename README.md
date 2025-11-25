@@ -1,32 +1,19 @@
-Project 3: V-Plot Matrix Generator (Pandas Version)
+#### Project 3: V-Plot Matrix Generator (Pandas Version)
 
 Goal: Generate a V-plot matrix (Offset vs. Fragment Length) from raw genomic sequencing data using the Pandas library. This approach leverages vectorized operations for high performance and code conciseness, replacing complex manual loops with efficient DataFrame manipulations.
 
-🚀 Key Features
 
-Concise Codebase: The entire logic is implemented in fewer than 40 lines of code, making it easy to read and maintain.
 
-Vectorized Calculations: Uses Pandas' column-based operations to calculate fragment lengths and midpoints for millions of rows instantly, without explicit loops.
-
-Efficient Grouping: Utilizes groupby().size() to aggregate millions of reads into matrix counts in a single step.
-
-Stream Processing: Reads data directly from standard input (pipes), allowing integration into Unix pipelines.
-
-📂 File Structure
-
-File
-
-Language
-
-Description
-
+#### File
 vplot_pandas.py
+
+#### Description
 
 Python
 
 The main script using Pandas to calculate coordinates and generate the matrix.
 
-🛠 Prerequisites
+#### Prerequisites
 
 Python 3.x
 
@@ -37,7 +24,7 @@ To install pandas, run:
 pip install pandas
 
 
-⚙️ Usage
+#### Usage
 
 1. Run the Script
 
