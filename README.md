@@ -7,9 +7,10 @@ Goal: Generate a V-plot matrix (Offset vs. Fragment Length) from raw genomic seq
 #### File
 vplot_pandas.py
 
-#### Description
-
+#### language
 Python
+
+#### Description
 
 The main script using Pandas to calculate coordinates and generate the matrix.
 
@@ -33,7 +34,7 @@ Pipe your BED data directly into the script. This example uses shuf.a.bed.gz.
 zcat shuf.a.bed.gz | python3 vplot_pandas.py > matrix_pandas.tsv
 
 
-Output:
+#### Output:
 A tab-separated file (matrix_pandas.tsv) with three columns:
 
 offset: The genomic midpoint of the fragment.
